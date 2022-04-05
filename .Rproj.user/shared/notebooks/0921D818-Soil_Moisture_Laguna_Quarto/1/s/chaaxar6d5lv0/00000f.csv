@@ -2,7 +2,3 @@
 "0","sci_pass <- ""sprung-slogan-elevating"""
 "0",""
 "0","write_scihub_login(sci_user, sci_pass)"
-"2","Request failed [503]. Retrying in 1 seconds...
-"
-"2","Request failed [503]. Retrying in 3.2 seconds...
-"
