@@ -11,6 +11,7 @@ Date: 3/30/2020
 **Date:** 3/30/2020
 
 ```{r knitr setup, echo=FALSE}
+# google cloud project ID "Sen2rAM"
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 ```
 
@@ -62,35 +63,41 @@ leaflet(st_as_sf(Laguna_Ext)) %>%
 
 `sen2r` is a package made for downloading and pre-processing Sentinel-2 data in R. The function `sen2r()` actually allows for a GUI based selection of imagery. For the sake of reproducability and automation, we will pass the parameters through the function - bypassing the graphical interface.
 
-```{r password, echo=FALSE}
-sci_user <- "gisaltmeade"
-sci_pass <- "sprung-slogan-elevating"
-
-write_scihub_login(sci_user, sci_pass)
-```
+We also want to create a temp folder out of the working directory to keep large SAFE files from bogging down our repo uploads (when using version control like Git).
 
 ```{r sen2r function, eval=FALSE}
 timeframe_begin <- "2021-1-1" #change these dates to change the image download timeframe
 timeframe_end <- "2022-1-1"
 
-dir.create("temp")
-tempDir <- paste0(getwd(), "/temp")
+true_wd <- getwd()
 
-out_dir  <- tempfile(pattern = "sen2r_out_1_"#, 
-                     #tmpdir = tempDir
+setwd("./..")
+ 
+if (!dir.exists("Sen2r_Temp")){
+  dir.create("Sen2r_Temp")
+}
+
+tempDir <- paste0(getwd(), "/Sen2r_Temp")
+
+setwd(true_wd)
+
+out_dir  <- tempfile(pattern = "sen2r_out_1_", 
+                     tmpdir = tempDir
                      ) # output folder
-safe_dir <- tempfile(pattern = "sen2r_safe_"#,
-                     #tmpdir = tempDir
+safe_dir <- tempfile(pattern = "sen2r_safe_",
+                     tmpdir = tempDir
                      )  # folder to store downloaded SAFE
+
 
 out_paths <- sen2r(
   gui = FALSE,
   downloader = "aria2",
   extent = Laguna_file_name,
   extent_name = "LagunaLake",
-  timewindow = c(as.Date(timeframe_begin), as.Date(timeframe_end)),
+  timewindow = c(as.Date(timeframe_begin), 
+                 as.Date(timeframe_end)),
   list_indices = c("NDMI"),
-  rm_safe = TRUE,
+  #rm_safe = TRUE,
   # overwrite_safe = TRUE,
   max_cloud_safe = 100,
   mask_type = "cloud_and_shadow",
@@ -106,9 +113,7 @@ raster_ndmis_paths <- c(out_paths) #list of paths from raster outputs
 ```
 
 ```{r sen2r psuedo-Output, echo=FALSE}
-# raster_ndmis_paths <- c("C:\\Users\\samer\\AppData\\Local\\Temp\\RTMPGT~1\\SEN2R_~3/NDMI/S2A2A_202101126_070_LagunaLake_NDMI_10.tif",
-#                         "C:\\Users\\samer\\AppData\\Local\\Temp\\RTMPGT~1\\SEN2R_~3/NDMI/S2B2A_20210210_070_LagunaLake_NDMI_10.tif",
-#                         "C:\\Users\\samer\\AppData\\Local\\Temp\\RTMPGT~1\\SEN2R_~3/NDMI/S2A2A_20210225_070_LagunaLake_NDMI_10.tif")
+raster_ndmis_paths <- c(choose.files())
 ```
 
 ## View Raster on a Map

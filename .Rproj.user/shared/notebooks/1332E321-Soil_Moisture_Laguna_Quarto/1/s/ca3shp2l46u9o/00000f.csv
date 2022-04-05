@@ -1,8 +1,0 @@
-"0","library(sen2r) #read in sentinel-2 imagery"
-"0","library(terra) #Spatial data tools"
-"0","library(leaflet) #Interactive map viewer"
-"0","library(sf) #for conversion between spatial formats"
-"0","library(raster)"
-"0","library(RColorBrewer)"
-"0",""
-"0","check_gcloud() "
