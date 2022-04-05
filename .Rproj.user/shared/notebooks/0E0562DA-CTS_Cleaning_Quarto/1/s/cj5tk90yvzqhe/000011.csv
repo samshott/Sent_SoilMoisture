@@ -1,0 +1,7 @@
+"0",""
+"0","cts_table %<>% "
+"0","  mutate("
+"0","    Den.Species = "
+"0","      stri_trans_totitle(Den.Species)"
+"0","  )"
+"0","cts_table %>% count(Den.Species, sort = TRUE) "

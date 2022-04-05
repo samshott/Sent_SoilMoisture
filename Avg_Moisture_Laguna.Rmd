@@ -1,0 +1,43 @@
+---
+title: "Soil Moisture Measurements from Sentinel-2 Data"
+graphics: yes
+output: html_notebook
+---
+
+```{r knitr setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+```
+
+We are going to be pulling Sentinel-2 imagery from Google Cloud, using the Google Cloud SDK (CLI). In order for the rest of this process to work, make sure that [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) is installed on your computer in the default directory.
+
+```{r setup packages, warning=FALSE, message=FALSE}
+library(sen2r) #read in sentinel-2 imagery
+library(h3) #aggrigation on Ubers H3 hexagon grid
+library(terra) #Spatial data tools
+library(leaflet) #Interactive map viewer
+library(sf) #for conversion between spatial formats
+
+check_gcloud() 
+```
+
+If you get an error about Google Cloud Initialization make sure you open a command prompt (cmd) and enter `gcloud init` .
+
+# Create Extent
+
+First we will need to create a feature that encompasses the area of interest, in this case - Laguna Lake in San Luis Obispo, CA. First we use an online map to get some corner coordinates and create a spatial vector. Then we make sure it's in the right place by plotting them on a leaflet map.
+
+```{r Laguna Extent}
+
+Laguna_Ext <- vect("POLYGON ((-120.7063985 35.2706786, -120.6881986 35.2813860, -120.6709197 35.2768445, -120.6741943 35.2647444,-120.6883474 35.2544259, -120.7063985 35.2706786))")
+
+leaflet(st_as_sf(Laguna_Ext)) %>% 
+  addTiles() %>% 
+  addPolygons()
+```
+
+# Download Sentinel-2 Data
+
+```{r}
+
+sen2r()
+```

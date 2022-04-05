@@ -1,0 +1,3 @@
+"0","cts_table <- read.xlsx2(""CTSdata.xlsx"", sheetIndex = 2)"
+"0",""
+"0","head(cts_table[1:8])#see what the data looks like, did column names transfer over okay?"

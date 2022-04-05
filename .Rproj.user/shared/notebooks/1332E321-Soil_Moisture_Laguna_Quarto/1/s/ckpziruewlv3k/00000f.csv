@@ -1,0 +1,3 @@
+"0","rast1 <- raster(raster_ndmis_paths[1]) #create a raster object from one path"
+"2","Error in raster(raster_ndmis_paths[1]) : could not find function ""raster""
+"

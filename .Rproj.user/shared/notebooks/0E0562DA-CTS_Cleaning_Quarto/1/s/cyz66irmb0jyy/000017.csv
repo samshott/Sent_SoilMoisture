@@ -1,0 +1,3 @@
+"0","cts_table %<>% "
+"0","  mutate(Den.Species = ""None"")  #Fill with ""None"" as we want this to be the default"
+"0","cts_table %>% count(Den.Species, sort = TRUE) # Keep a rolling tally of number of each species.  ""None""s should only decrease as we go on."
