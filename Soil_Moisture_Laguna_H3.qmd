@@ -36,7 +36,7 @@ It's also worth mentioning, that in the case you wanted to grab several files al
 
 Here we will demonstrate the use of the `file.choose()` function, and although the resultant GUI won't be displayed on this page, when you run it on your local machine you should find the function quite intuitive.
 
-```{r psuedo raster path, echo=FALSE}
+```{r psuedo raster path, echo=FALSE, eval=FALSE}
 rast_path_list <- c(choose.files())
 
 cumm_moisture_func <- function(path_list){
@@ -57,15 +57,16 @@ cumm_moisture_func <- function(path_list){
 }
 
 cummulative_moisture <- raster(sum(cumm_moisture_func(c(rast_path_list)), na.rm = TRUE))
+
+writeRaster(cummulative_moisture, "cummulative_moisture_example", writeFormats()[24])
 ```
 
 ```{r read in previous raster}
-#rast_path <- file.choose() #find and select raster, create char vector of path to raster
+rast_path <- file.choose() #find and select raster, create char vector of path to raster
 
 webmercProj <- "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs" # crs from previous exercise
 # 
-# cummulative_moisture <- terra::rast(rast_path, 
-#                                     crs = webmercProj) #read in raster from path from previous exercise
+cummulative_moisture <- terra::rast(rast_path) #read in raster from path from previous exercise
 
 ```
 
