@@ -90,7 +90,7 @@ out_paths <- sen2r(
   extent_name = "LagunaLake",
   timewindow = c(as.Date(timeframe_begin), as.Date(timeframe_end)),
   list_indices = c("NDMI"),
-  # rm_safe = TRUE,
+  rm_safe = TRUE,
   # overwrite_safe = TRUE,
   max_cloud_safe = 100,
   mask_type = "cloud_and_shadow",
