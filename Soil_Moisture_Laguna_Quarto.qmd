@@ -11,7 +11,7 @@ Date: 3/30/2020
 **Date:** 3/30/2020
 
 ```{r knitr setup, echo=FALSE}
-# google cloud project ID "Sen2"
+# google cloud project ID "Sen2rAM"
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 ```
 
@@ -89,9 +89,10 @@ out_paths <- sen2r(
   downloader = "aria2",
   extent = Laguna_file_name,
   extent_name = "LagunaLake",
-  timewindow = c(as.Date(timeframe_begin), as.Date(timeframe_end)),
+  timewindow = c(as.Date(timeframe_begin), 
+                 as.Date(timeframe_end)),
   list_indices = c("NDMI"),
-  rm_safe = TRUE,
+  #rm_safe = TRUE,
   # overwrite_safe = TRUE,
   max_cloud_safe = 100,
   mask_type = "cloud_and_shadow",
