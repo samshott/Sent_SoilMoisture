@@ -11,6 +11,7 @@ Date: 3/30/2020
 **Date:** 3/30/2020
 
 ```{r knitr setup, echo=FALSE}
+# google cloud project ID "Sen2"
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 ```
 
