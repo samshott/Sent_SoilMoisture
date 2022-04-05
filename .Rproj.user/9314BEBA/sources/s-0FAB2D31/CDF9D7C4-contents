@@ -77,8 +77,12 @@ timeframe_end <- "2022-1-1"
 dir.create("temp")
 tempDir <- paste0(getwd(), "/temp")
 
-out_dir  <- tempfile(pattern = "sen2r_out_1_", tmpdir = tempDir) # output folder
-safe_dir <- tempfile(pattern = "sen2r_safe_", tmpdir = tempDir)  # folder to store downloaded SAFE
+out_dir  <- tempfile(pattern = "sen2r_out_1_"#, 
+                     #tmpdir = tempDir
+                     ) # output folder
+safe_dir <- tempfile(pattern = "sen2r_safe_"#,
+                     #tmpdir = tempDir
+                     )  # folder to store downloaded SAFE
 
 out_paths <- sen2r(
   gui = FALSE,
@@ -87,7 +91,7 @@ out_paths <- sen2r(
   extent_name = "LagunaLake",
   timewindow = c(as.Date(timeframe_begin), as.Date(timeframe_end)),
   list_indices = c("NDMI"),
-  # rm_safe = TRUE,
+  rm_safe = TRUE,
   # overwrite_safe = TRUE,
   max_cloud_safe = 100,
   mask_type = "cloud_and_shadow",

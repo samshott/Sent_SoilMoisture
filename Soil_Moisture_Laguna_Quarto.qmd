@@ -78,7 +78,7 @@ dir.create("temp")
 tempDir <- paste0(getwd(), "/temp")
 
 out_dir  <- tempfile(pattern = "sen2r_out_1_"#, 
-                     tmpdir = tempDir
+                     #tmpdir = tempDir
                      ) # output folder
 safe_dir <- tempfile(pattern = "sen2r_safe_"#,
                      #tmpdir = tempDir
