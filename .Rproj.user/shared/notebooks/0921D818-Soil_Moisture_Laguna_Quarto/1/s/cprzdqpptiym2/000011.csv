@@ -1,0 +1,41 @@
+"0","library(sen2r) #read in sentinel-2 imagery"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","Registered S3 method overwritten by 'geojsonsf':
+  method        from   
+  print.geojson geojson
+"
+"2","Welcome to sen2r. To use the package from a GUI, launch
+ > sen2r()
+Documentation: https://sen2r.ranghetti.info
+Help and bug report: https://github.com/ranghetti/sen2r/issues
+"
+"0","library(terra) #Spatial data tools"
+"0","library(leaflet) #Interactive map viewer"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"0","library(sf) #for conversion between spatial formats"
+"2","Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1; sf_use_s2() is TRUE
+"
+"0","library(raster)"
+"2","Loading required package: sp
+"
+"0","library(RColorBrewer)"
+"0",""
+"0","check_gcloud() "
+"2","Searching for a valid Google Cloud SDK installation...
+"
+"2","Error: 
+Google Cloud SDK was not initialised; do it following the indications in
+https://cloud.google.com/sdk/docs/install or set 'check_creds = FALSE'.
+"
