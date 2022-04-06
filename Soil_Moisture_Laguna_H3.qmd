@@ -7,9 +7,13 @@ Date: 4/4/2020
 bibliography: references.bib
 ---
 
+Resolution = 12
+
 **Author:** Sam Ericksen
 
 **Date:** 3/30/2020
+
+Although the indices created from the sentinel-2 data are useful by themselves in many applications, they are still a pixilized raster format. This means that we cannot easily join them with other data. In our case we are using soil moisture as one of many variables to predict good habitat for a local plant. Because we are looking at other variables too, it would be nice if we
 
 ```{r knitr setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")

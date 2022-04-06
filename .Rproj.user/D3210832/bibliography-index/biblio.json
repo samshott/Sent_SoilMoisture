@@ -1,4 +1,17 @@
 {
-    "sources": [],
+    "sources": [
+        {
+            "URL": "https://tmieno2.github.io/R-as-GIS-for-Economists/extracting-values-from-raster-layers-for-vector-data.html",
+            "author": [
+                {
+                    "family": "Mieno",
+                    "given": "Taro"
+                }
+            ],
+            "id": "mieno",
+            "title": "5.2 extracting values from raster layers for vector data | r as GIS for economists",
+            "type": "book"
+        }
+    ],
     "project_biblios": []
 }
