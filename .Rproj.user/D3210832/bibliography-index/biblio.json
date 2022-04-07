@@ -11,6 +11,28 @@
             "id": "mieno",
             "title": "5.2 extracting values from raster layers for vector data | r as GIS for economists",
             "type": "book"
+        },
+        {
+            "URL": "https://eng.uber.com/h3/",
+            "author": [
+                {
+                    "family": "Brodsky",
+                    "given": "Isaac"
+                }
+            ],
+            "container-title": "Uber Engineering Blog",
+            "id": "brodsky2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        6
+                    ]
+                ]
+            },
+            "title": "H3: Uber’s hexagonal hierarchical spatial index",
+            "title-short": "H3",
+            "type": ""
         }
     ],
     "project_biblios": []

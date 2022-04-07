@@ -13,7 +13,7 @@ Resolution = 12
 
 **Date:** 4/7/2020
 
-Although the indices created from the sentinel-2 data are useful by themselves in many applications, they are still a pixelized raster format. This means that we cannot easily join them with other data. In our case we are using soil moisture as one of many variables to predict good habitat for a local plant. Because we are looking at other variables too, it would be nice if we
+Although the indices created from the sentinel-2 data are useful by themselves in many applications, they are still a pixelized raster format. This means that we cannot easily join them with other data. In our case we are using soil moisture as one of many variables to predict good habitat for a local plant. Because we are looking at other variables too, it would be nice if we could aggrigate values within a fixed grid system that remains constant across all variables. Uber H3 has offered up a solution using concentric hexagons that we will use here @brodsky2018.
 
 ```{r knitr setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
