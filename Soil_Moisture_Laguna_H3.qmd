@@ -25,6 +25,7 @@ First lets load in some packages to help us work with spatial data. (Note: if yo
 library(h3) #aggrigation on Ubers H3 hexagon grid
 library(terra) #Spatial data tools
 library(leaflet) #Interactive map viewer
+library(leafpop)
 library(sf) #for conversion between spatial formats
 library(raster)
 library(RColorBrewer)
@@ -107,13 +108,55 @@ for (index in laguna_h3){
   laguna_h3_12 <-  c(laguna_h3_12, children)
 }
 
-laguna_h3_12 <- h3_to_geo_boundary_sf(laguna_h3_12)
+laguna_h3_12 <- cbind(h3_to_geo_boundary_sf(laguna_h3_12),laguna_h3_12)[laguna_Ext, ] #retain an attribute of the h3 index
 
 leaflet(laguna_h3_12) %>% 
   addTiles() %>% 
-  addPolygons()
+  addPolygons() %>% 
+  addRasterImage(raster(cummulative_moisture))
 ```
 
 ## Extract Values
 
-[@mieno]
+Now we need to summarize the values of the cumulative moisture raster into the h3 hexagons. This process is called extraction @mieno. Since the pixels are square and the raster is hexagonalwe must weight the the summarized values by the area of the pixel that is contained within each hexagon.
+
+```{r extract values}
+
+cummulative_moisture <-  project(cummulative_moisture, crs(laguna_Ext))
+
+laguna_h3_moisture_mean <- terra::extract(cummulative_moisture, 
+                                          vect(laguna_h3_12), 
+                                          fun = mean)
+
+laguna_h3_12 <- cbind(laguna_h3_12,
+                      laguna_h3_moisture_mean$cummulative_moisture_example)
+
+
+colnames(laguna_h3_12) <- c("H3 Index", "Cummulative Moisture", "geometry")
+
+laguna_h3_12$`Cummulative Moisture` <- round(laguna_h3_12$`Cummulative Moisture`)
+
+cumm_pal <- colorNumeric(palette = "RdYlBu",
+                         domain = laguna_h3_12$`Cummulative Moisture`, 
+                         na.color = "transparent", 
+                         reverse = TRUE)
+
+
+
+leaflet(laguna_h3_12) %>% 
+  addPolygons(fillColor = ~cumm_pal(`Cummulative Moisture`), 
+              fillOpacity = 0.8, 
+              color = "dark grey", 
+              weight = 0.2,
+              popup = popupTable(laguna_h3_12[c(2,1)])) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addLegend(pal = cumm_pal,
+            values = laguna_h3_12$`Cummulative Moisture`,
+            title = "Cummulative NDMI",
+            labFormat =  function(type, cuts, p) {
+              n = length(cuts) 	
+              cuts[n] = "Least" 	
+              for (i in 2:(n-1)){cuts[i] = ""}
+              cuts[1] = "Most"	
+              paste0(cuts[-n], cuts[-1])})
+```
