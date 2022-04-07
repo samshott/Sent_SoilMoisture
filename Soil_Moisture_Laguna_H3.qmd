@@ -3,7 +3,7 @@ title: "Sentinel-2 Soil Moisture Data Aggrigation with Uber H3 Part 2"
 author: "Sam Ericksen"
 format: html
 editor: visual
-Date: 4/4/2020
+Date: 4/7/2020
 bibliography: references.bib
 ---
 
@@ -11,9 +11,9 @@ Resolution = 12
 
 **Author:** Sam Ericksen
 
-**Date:** 3/30/2020
+**Date:** 4/7/2020
 
-Although the indices created from the sentinel-2 data are useful by themselves in many applications, they are still a pixilized raster format. This means that we cannot easily join them with other data. In our case we are using soil moisture as one of many variables to predict good habitat for a local plant. Because we are looking at other variables too, it would be nice if we
+Although the indices created from the sentinel-2 data are useful by themselves in many applications, they are still a pixelized raster format. This means that we cannot easily join them with other data. In our case we are using soil moisture as one of many variables to predict good habitat for a local plant. Because we are looking at other variables too, it would be nice if we
 
 ```{r knitr setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
@@ -28,6 +28,7 @@ library(leaflet) #Interactive map viewer
 library(sf) #for conversion between spatial formats
 library(raster)
 library(RColorBrewer)
+library(dplyr)
 ```
 
 # Loading in the Data
@@ -66,7 +67,7 @@ writeRaster(cummulative_moisture, "cummulative_moisture_example", writeFormats()
 ```
 
 ```{r read in previous raster}
-rast_path <- file.choose() #find and select raster, create char vector of path to raster
+rast_path <- "cummulative_moisture_example.tif" #find and select raster, create char vector of path to raster
 
 webmercProj <- "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs" # crs from previous exercise
 # 
@@ -78,7 +79,40 @@ cummulative_moisture <- terra::rast(rast_path) #read in raster from path from pr
 
 ## Create Empty H3 polygons for the AOI
 
-First we need to create some empty polygons (hexagons) to summarize the raster values within. Because we
+First we need to create some empty polygons (hexagons) to summarize the raster values within. To do this we simply use our previous polygon for the AOI (Part 1). Because we wrote the GeoJSON for the AOI to a file we can simply read it in here.
+
+```{r AOI}
+laguna_file <- "Laguna_Ext.GeoJSON"
+
+laguna_Ext <- read_sf(laguna_file)
+
+leaflet(laguna_Ext) %>% 
+  addTiles() %>% 
+  addPolygons()
+```
+
+Looks like we're still in the right place. Next lets construct a grid of H3 hexes for the area, with a resolution of 12 (based on resolution used for other variables).
+
+```{r Create H3, echo = 2:5}
+
+laguna_h3 <- 
+  geo_to_h3(laguna_Ext) %>% #create all encompassing hexagons index list
+  unique()
+
+laguna_h3_12 <- c()
+
+for (index in laguna_h3){
+  children <- h3_to_children(index, res = 12)
+  
+  laguna_h3_12 <-  c(laguna_h3_12, children)
+}
+
+laguna_h3_12 <- h3_to_geo_boundary_sf(laguna_h3_12)
+
+leaflet(laguna_h3_12) %>% 
+  addTiles() %>% 
+  addPolygons()
+```
 
 ## Extract Values
 
