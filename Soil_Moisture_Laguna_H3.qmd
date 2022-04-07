@@ -148,7 +148,7 @@ leaflet(laguna_h3_12) %>%
               fillOpacity = 0.8, 
               color = "dark grey", 
               weight = 0.2,
-              popup = popupTable(laguna_h3_12[c(2,1)])) %>% 
+              popup = popupTable(laguna_h3_12[1:2])) %>% 
   addProviderTiles(providers$CartoDB.Positron) %>% 
   addLegend(pal = cumm_pal,
             values = laguna_h3_12$`Cummulative Moisture`,
